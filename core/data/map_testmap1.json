@@ -1,98 +1,58 @@
 {
-  "cities": {
-    "Budapest": {
-      "connections": {
-        "Vienna": [
-          {
-            "length": 2,
-            "color": "Red",
-            "is_tunnel": false,
-            "is_ferry": false
-          },
-          {
-            "length": 2,
-            "color": "White",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ]
-      }
+  "cities": [
+    { "id": "ber", "name": "Berlin", "x": 250, "y": 60 },
+    { "id": "pra", "name": "Prague", "x": 270, "y": 160 },
+    { "id": "vie", "name": "Vienna", "x": 340, "y": 240 },
+    { "id": "bud", "name": "Budapest", "x": 460, "y": 260 }
+  ],
+  "routes": [
+    {
+      "id": "bud-vie-1",
+      "a": "bud",
+      "b": "vie",
+      "length": 2,
+      "color": "red",
+      "type": "normal"
     },
-    "Vienna": {
-      "connections": {
-        "Budapest": [
-          {
-            "length": 2,
-            "color": "Red",
-            "is_tunnel": false,
-            "is_ferry": false
-          },
-          {
-            "length": 2,
-            "color": "White",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ],
-        "Berlin": [
-          {
-            "length": 3,
-            "color": "Green",
-            "is_tunnel": false,
-            "is_ferry": false
-          },
-          {
-            "length": 3,
-            "color": "Grey",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ],
-        "Prague": [
-          {
-            "length": 2,
-            "color": "Yellow",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ]
-      }
+    {
+      "id": "bud-vie-2",
+      "a": "bud",
+      "b": "vie",
+      "length": 2,
+      "color": "white",
+      "type": "normal"
     },
-    "Prague": {
-      "connections": {
-        "Vienna": [
-          {
-            "length": 2,
-            "color": "Yellow",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ],
-        "Berlin": [
-          { "length": 2, "color": "Grey", "is_tunnel": true, "is_ferry": false }
-        ]
-      }
+    {
+      "id": "vie-ber-1",
+      "a": "vie",
+      "b": "ber",
+      "length": 3,
+      "color": "green",
+      "type": "normal"
     },
-    "Berlin": {
-      "connections": {
-        "Vienna": [
-          {
-            "length": 3,
-            "color": "Green",
-            "is_tunnel": false,
-            "is_ferry": false
-          },
-          {
-            "length": 3,
-            "color": "Grey",
-            "is_tunnel": false,
-            "is_ferry": false
-          }
-        ],
-        "Prague": [
-          { "length": 2, "color": "Grey", "is_tunnel": true, "is_ferry": false }
-        ]
-      }
+    {
+      "id": "vie-ber-2",
+      "a": "vie",
+      "b": "ber",
+      "length": 3,
+      "color": "grey",
+      "type": "normal"
+    },
+    {
+      "id": "vie-pra-1",
+      "a": "vie",
+      "b": "pra",
+      "length": 2,
+      "color": "yellow",
+      "type": "normal"
+    },
+    {
+      "id": "pra-ber-1",
+      "a": "pra",
+      "b": "ber",
+      "length": 2,
+      "color": "grey",
+      "type": "tunnel"
     }
-  }
+  ]
 }
