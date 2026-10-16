@@ -1,0 +1,98 @@
+{
+  "cities": {
+    "Budapest": {
+      "connections": {
+        "Vienna": [
+          {
+            "length": 2,
+            "color": "Red",
+            "is_tunnel": false,
+            "is_ferry": false
+          },
+          {
+            "length": 2,
+            "color": "White",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ]
+      }
+    },
+    "Vienna": {
+      "connections": {
+        "Budapest": [
+          {
+            "length": 2,
+            "color": "Red",
+            "is_tunnel": false,
+            "is_ferry": false
+          },
+          {
+            "length": 2,
+            "color": "White",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ],
+        "Berlin": [
+          {
+            "length": 3,
+            "color": "Green",
+            "is_tunnel": false,
+            "is_ferry": false
+          },
+          {
+            "length": 3,
+            "color": "Grey",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ],
+        "Prague": [
+          {
+            "length": 2,
+            "color": "Yellow",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ]
+      }
+    },
+    "Prague": {
+      "connections": {
+        "Vienna": [
+          {
+            "length": 2,
+            "color": "Yellow",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ],
+        "Berlin": [
+          { "length": 2, "color": "Grey", "is_tunnel": true, "is_ferry": false }
+        ]
+      }
+    },
+    "Berlin": {
+      "connections": {
+        "Vienna": [
+          {
+            "length": 3,
+            "color": "Green",
+            "is_tunnel": false,
+            "is_ferry": false
+          },
+          {
+            "length": 3,
+            "color": "Grey",
+            "is_tunnel": false,
+            "is_ferry": false
+          }
+        ],
+        "Prague": [
+          { "length": 2, "color": "Grey", "is_tunnel": true, "is_ferry": false }
+        ]
+      }
+    }
+  }
+}
