@@ -38,7 +38,7 @@ def new_game(game_map: GameMap, player_names: list[str]) -> GameState:
 def apply_action(state:GameState, player_name:str, action:Action, game_map:GameMap) -> GameState:
     match action:
         case ClaimRoute():
-            _claim_route(state,player_name,action,game_map)
+            return _claim_route(state,player_name,action,game_map)
             
         case _:
             raise RuleError("Unknown action")
