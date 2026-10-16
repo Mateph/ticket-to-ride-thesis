@@ -1,5 +1,6 @@
-from pydantic import BaseModel,StrictInt, model_validator
-from typing import Self,Literal
+from typing import Literal, Self
+
+from pydantic import BaseModel, StrictInt, model_validator
 
 #region map
 
@@ -44,7 +45,7 @@ class PlayerState(BaseModel):
 class GameState(BaseModel):
     players: list[PlayerState]
     route_owners: dict[str,str | None]
-    current_player: int
+    current_player_index: int
 
 #endregion
 
