@@ -1,25 +1,12 @@
-import { useState } from "react";
 import "./App.css";
+import RouteList from "./Game";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <section id="center">
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+        <RouteList />
       </section>
-
-      <div className="ticks"></div>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
     </>
   );
 }
