@@ -54,4 +54,6 @@ logs/
 # --- Operation system ---
 .DS_Store
 Thumbs.db
-desktop.ini
+desktop.iniIcon?
+Icon\r
+Icon?
