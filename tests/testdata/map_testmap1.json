@@ -1,0 +1,58 @@
+{
+  "cities": [
+    { "id": "ber", "name": "Berlin", "x": 250, "y": 60 },
+    { "id": "pra", "name": "Prague", "x": 270, "y": 160 },
+    { "id": "vie", "name": "Vienna", "x": 340, "y": 240 },
+    { "id": "bud", "name": "Budapest", "x": 460, "y": 260 }
+  ],
+  "routes": [
+    {
+      "id": "bud-vie-1",
+      "a": "bud",
+      "b": "vie",
+      "length": 2,
+      "color": "red",
+      "type": "normal"
+    },
+    {
+      "id": "bud-vie-2",
+      "a": "bud",
+      "b": "vie",
+      "length": 2,
+      "color": "white",
+      "type": "normal"
+    },
+    {
+      "id": "vie-ber-1",
+      "a": "vie",
+      "b": "ber",
+      "length": 3,
+      "color": "green",
+      "type": "normal"
+    },
+    {
+      "id": "vie-ber-2",
+      "a": "vie",
+      "b": "ber",
+      "length": 3,
+      "color": "grey",
+      "type": "normal"
+    },
+    {
+      "id": "vie-pra-1",
+      "a": "vie",
+      "b": "pra",
+      "length": 2,
+      "color": "yellow",
+      "type": "normal"
+    },
+    {
+      "id": "pra-ber-1",
+      "a": "pra",
+      "b": "ber",
+      "length": 2,
+      "color": "grey",
+      "type": "tunnel"
+    }
+  ]
+}
