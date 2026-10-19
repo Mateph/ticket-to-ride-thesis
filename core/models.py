@@ -44,7 +44,7 @@ class PlayerState(BaseModel):
 
 class GameState(BaseModel):
     players: list[PlayerState]
-    route_owners: dict[str,str | None]
+    route_owners: dict[str,str | None] #Route,Owner
     current_player_index: int
 
 #endregion

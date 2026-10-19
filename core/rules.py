@@ -1,7 +1,7 @@
 from core.models import ClaimRoute, GameMap, GameState, PlayerState, Route
 
 STARTING_TRAINS = 5
-#MIN_PLAYERS = 2
+MIN_PLAYERS = 2
 
 RULE_POINTS = {1:1, 2:2, 3:4, 4:7, 5:10, 6:15}
 
@@ -24,8 +24,9 @@ def find_player_index(state: GameState, player_name: str)-> int | None:
 #region actions
 
 def new_game(game_map: GameMap, player_names: list[str]) -> GameState:   
-    #if len(player_names < MIN_PLAYERS):
-    #    raise RuleError(f"At least {MIN_PLAYERS} players are needed for game start") 
+    if len(player_names) < MIN_PLAYERS:
+        raise RuleError(f"At least {MIN_PLAYERS} players are needed for game start") 
+    
     if len(set(player_names)) != len(player_names):
         raise RuleError("All player names must be unique")
     players = [
