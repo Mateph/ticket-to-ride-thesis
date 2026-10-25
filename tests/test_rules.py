@@ -19,7 +19,6 @@ def get_route_index_by_id(route_id: str, map: GameMap) -> int:
 
 
 class TestNewGame:
-
     def test_short_list(self, game_map):
         short_list = [""]
 
@@ -33,15 +32,10 @@ class TestNewGame:
     def test_non_unique_list(self, game_map):
         non_unique_list = ["apple", "apple"]
 
-        with pytest.raises(RuleError) as excinfo:
+        with pytest.raises(RuleError, match="player names must be unique"):
             new_game(game_map=game_map, player_names=non_unique_list)
-        assert excinfo.value.args[0] == "All player names must be unique"
 
-    def test_new_game(self, game_map):
-        passing_list = ["apple", "pear"]
-
-        state = new_game(game_map=game_map, player_names=passing_list)
-
+    def test_new_game(self, game_map, state):
         assert state.players[0].name == "apple"
         assert state.players[0].trains_left == STARTING_TRAINS
         assert state.players[0].score == 0
