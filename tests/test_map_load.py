@@ -4,7 +4,7 @@ from core.loader import load_map
 
 
 def test_testmap1_loads():
-    TEST_PATH = Path(__file__).parent.parent / "core" / "data" / "map_testmap1.json"
+    TEST_PATH = Path(__file__).parent / "testdata" / "testmap1.json"
     game_map = load_map(TEST_PATH)
 
     assert len(game_map.cities) == 4

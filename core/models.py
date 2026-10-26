@@ -2,10 +2,14 @@ from typing import Literal, Self
 
 from pydantic import BaseModel, StrictInt, model_validator
 
+ALLOWED_COLORS = {"red", "white", "green", "gray", "black", "yellow", "purple", "pink"}
+ALLOWED_ROUTE_TYPES = {"normal", "tunnel", "ferry"}
+
+MAX_ROUTE_LENGTH = 7
+ALLOWED_ROUTE_LENGTHS = {i for i in range(1, MAX_ROUTE_LENGTH + 1)}
 # region map
 
 
-# Todo: Make more validations
 class City(BaseModel):
     id: str
     name: str
@@ -13,7 +17,6 @@ class City(BaseModel):
     y: StrictInt
 
 
-# Todo: Make more validations
 class Route(BaseModel):
     id: str
     a: str
@@ -22,8 +25,33 @@ class Route(BaseModel):
     color: str
     type: str
 
+    @model_validator(mode="after")
+    def only_allowed_color_types_check(self) -> Self:
+        if self.color not in ALLOWED_COLORS:
+            raise ValueError(f"Not allowed color: {self.color}")
+        return self
 
-# Todo: Make more validations
+    @model_validator(mode="after")
+    def only_allowed_route_types_check(self) -> Self:
+        if self.type not in ALLOWED_ROUTE_TYPES:
+            raise ValueError(f"Not allowed route type: {self.type}")
+        return self
+
+    @model_validator(mode="after")
+    def only_allowed_route_length_check(self) -> Self:
+        if self.length not in ALLOWED_ROUTE_LENGTHS:
+            raise ValueError(f"Not allowed route length: {self.length}")
+        return self
+
+    @model_validator(mode="after")
+    def different_start_end_point_check(self) -> Self:
+        if self.a == self.b:
+            raise ValueError(
+                f"One route can't have the same start and end point: {self.a}"
+            )
+        return self
+
+
 class GameMap(BaseModel):
     cities: list[City]
     routes: list[Route]
@@ -34,7 +62,7 @@ class GameMap(BaseModel):
         city_ids = {c.id for c in self.cities}
         unknown_cities = route_endpoints - city_ids
         if unknown_cities:
-            raise ValueError(f"Unkown cities found: {unknown_cities}")
+            raise ValueError(f"Unknown cities found: {unknown_cities}")
         return self
 
     @model_validator(mode="after")
