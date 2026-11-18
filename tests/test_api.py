@@ -12,21 +12,21 @@ def test_get_map():
 
 
 def test_succesful_claim():
-    payload = {"player_name": "apple", "route_id": "bud-vie-1"}
+    valid_data = {"player_name": "apple", "route_id": "bud-vie-1"}
 
-    response = client.post("/api/claim", json=payload)
+    response = client.post("/api/claim", json=valid_data)
     assert response.status_code == 200
 
 
 def test_bad_message_400():
-    payload = {"player_name": "cherry", "route_id": "bud-vie-1"}
+    valid_data = {"player_name": "cherry", "route_id": "bud-vie-1"}
 
-    response = client.post("/api/claim", json=payload)
+    response = client.post("/api/claim", json=valid_data)
     assert response.status_code == 400
 
 
 def test_missing_field_422():
-    payload = {"route_id": "bud-vie-1"}
+    invalid_data = {"route_id": "bud-vie-1"}
 
-    response = client.post("/api/claim", json=payload)
+    response = client.post("/api/claim", json=invalid_data)
     assert response.status_code == 422
