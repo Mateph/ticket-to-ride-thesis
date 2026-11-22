@@ -19,7 +19,7 @@ PLAYERS = ["apple", "pear"]
 
 store = {"game_state": new_game(game_map, PLAYERS)}
 
-origins = ["http://localhost:5173"]
+origins = ["FRONTEND_URL", "http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,
