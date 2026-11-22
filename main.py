@@ -1,5 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from Path import Path
 from pydantic import BaseModel
 
 from core.loader import load_map
@@ -61,3 +64,24 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+
+
+frontend_dist = Path(__file__).resolve().parent / "frontend" / "dist"
+
+if frontend_dist.exists():
+    app.mount(
+        "/assets",
+        StaticFiles(directory=str(frontend_dist / "assets")),
+        name="assets",
+    )
+
+    @app.get("/{full_path:path}")
+    async def serve_react_app(full_path: str):
+        requested_path = (frontend_dist / full_path).resolve()
+        if (
+            full_path
+            and requested_path.is_file()
+            and frontend_dist in requested_path.parents
+        ):
+            return FileResponse(str(requested_path))
+        return FileResponse(str(frontend_dist / "index.html"))
