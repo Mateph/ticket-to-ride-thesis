@@ -1,5 +1,4 @@
 from core.models import (
-    ALLOWED_ROUTE_LENGTHS,
     ClaimRoute,
     GameMap,
     GameState,
@@ -8,12 +7,9 @@ from core.models import (
 )
 
 STARTING_TRAINS = 5
-MIN_PLAYERS = 2
+MIN_PLAYERS, MAX_PLAYERS = 2, 5
 
-RULE_POINTS = {
-    i: 1 if i == 1 else 2 + 3 * (i - 2) + ((i - 2) // 3 * ((i - 2) // 3 + 3)) // 2
-    for i in ALLOWED_ROUTE_LENGTHS
-}
+RULE_POINTS = {1: 1, 2: 2, 3: 4, 4: 7, 5: 10, 6: 15, 7: 19}
 
 Action = ClaimRoute
 
@@ -80,7 +76,7 @@ def _claim_route(
 ) -> GameState:
     player_index = find_player_index(state, player_name)
 
-    if player_index == None:
+    if player_index is None:
         raise RuleError("Unknown player index")
     if player_index != state.current_player_index:
         raise RuleError("It is not the player's turn")

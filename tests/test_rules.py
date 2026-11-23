@@ -3,6 +3,7 @@ import pytest
 from core.models import ClaimRoute, GameMap
 from core.rules import (
     MIN_PLAYERS,
+    MAX_PLAYERS,
     STARTING_TRAINS,
     RuleError,
     apply_action,
@@ -36,6 +37,8 @@ class TestNewGame:
             new_game(game_map=game_map, player_names=non_unique_list)
 
     def test_new_game(self, game_map, state):
+        assert len(state.players) >= MIN_PLAYERS and len(state.players) <= MAX_PLAYERS
+
         assert state.players[0].name == "apple"
         assert state.players[0].trains_left == STARTING_TRAINS
         assert state.players[0].score == 0

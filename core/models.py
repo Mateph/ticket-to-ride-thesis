@@ -82,6 +82,15 @@ class GameMap(BaseModel):
             raise ValueError(f"More cities have the same coordinates: {duplicates}")
         return self
 
+    @model_validator(mode="after")
+    def unique_route_ids_check(self) -> Self:
+        for type, items in (("city", self.cities), ("route", self.routes)):
+            ids = [item.id for item in items]
+            duplicates = {i for i in ids if ids.count(i) > 1}
+            if duplicates:
+                raise ValueError(f"Duplicate {type} ids: {duplicates}")
+        return self
+
 
 # endregion
 

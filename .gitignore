@@ -7,7 +7,7 @@ __pycache__/
 *.egg-info/
 .eggs/
 build/
-dist/          # a Python-csomagolás és a frontend build kimenete is ide kerülhet
+dist/
 
 # --- Virtual environment ---
 .venv/
@@ -54,6 +54,7 @@ logs/
 # --- Operation system ---
 .DS_Store
 Thumbs.db
-desktop.iniIcon?
+desktop.ini
+Icon?
 Icon\r
 Icon?
