@@ -2,8 +2,8 @@ import pytest
 
 from core.models import ClaimRoute, GameMap
 from core.rules import (
-    MIN_PLAYERS,
     MAX_PLAYERS,
+    MIN_PLAYERS,
     STARTING_TRAINS,
     RuleError,
     apply_action,
@@ -107,9 +107,8 @@ class TestClaim:
             )
 
         state_without_player = state.model_copy(deep=True)
-        test_name_id = 0
-        for player in state_without_player.players:
-            player.name = f"P{test_name_id}"
+        for i, player in enumerate(state_without_player.players):
+            player.name = f"P{i}"
 
         with pytest.raises(RuleError, match="Unknown player index"):
             apply_action(
@@ -173,26 +172,14 @@ class TestClaim:
 
     def test_no_change_to_base_state(self, game_map, state):
         state_save = state.model_dump()
-        testable_state = apply_action(
+        new_state = apply_action(
             state=state,
             player_name="apple",
             action=claim_route("bud-vie-1"),
             game_map=game_map,
         )
-        assert testable_state is not state_save
-        assert testable_state != state_save
-
-        state_save = state.model_dump()
-        with pytest.raises(RuleError):
-            testable_state = apply_action(
-                state=testable_state,
-                player_name="apple",
-                action=claim_route("bud-vie-1"),
-                game_map=game_map,
-            )
-
-        assert testable_state is not state_save
-        assert testable_state != state_save
+        assert state.model_dump() == state_save
+        assert new_state != state
 
     def test_current_player_index_resets(self, game_map, state):
         counter = 0

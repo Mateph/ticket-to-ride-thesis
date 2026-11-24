@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -22,16 +21,6 @@ game_map = load_map()
 PLAYERS = ["apple", "pear"]
 
 store = {"game_state": new_game(game_map, PLAYERS)}
-
-# origins = ["FRONTEND_URL", "http://localhost:5173"]
-
-# app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=origins,
-#    allow_credentials=True,
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-# )
 
 
 @app.get("/api/map")
@@ -56,15 +45,8 @@ def post_claim(req: ClaimRequest) -> GameState:
         )
     except RuleError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    else:
-        store["game_state"] = new_game_state
+    store["game_state"] = new_game_state
     return new_game_state
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 
 
 frontend_dist = Path(__file__).resolve().parent / "frontend" / "dist"
@@ -78,6 +60,8 @@ if frontend_dist.exists():
 
     @app.get("/{full_path:path}")
     async def serve_react_app(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404)
         requested_path = (frontend_dist / full_path).resolve()
         if (
             full_path
@@ -86,3 +70,9 @@ if frontend_dist.exists():
         ):
             return FileResponse(str(requested_path))
         return FileResponse(str(frontend_dist / "index.html"))
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

@@ -1,12 +1,11 @@
-import "./App.css";
-import RouteList from "./Game";
+import Game from "./components/Game";
 
 function App() {
   return (
     <>
-      <section id="center">
-        <RouteList />
-      </section>
+      <div>
+        <Game />
+      </div>
     </>
   );
 }

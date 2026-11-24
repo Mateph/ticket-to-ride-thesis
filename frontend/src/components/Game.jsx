@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-import api from "./api";
+import { useEffect, useState } from "react";
+import api from "../api";
 
-const RouteList = () => {
+const Game = () => {
   const [gameMap, setGameMap] = useState(null);
   const [game, setGame] = useState(null);
+  const [loadError, setLoadError] = useState("");
 
   const [gameError, setError] = useState("");
-
-  const fetchGameMap = async () => {
-    try {
-      const response = await api.get("/map");
-      setGameMap(response.data);
-    } catch (error) {
-      console.error("Error fetching game map", error);
-    }
-  };
 
   const fetchGame = async () => {
     try {
@@ -22,6 +14,7 @@ const RouteList = () => {
       setGame(response.data);
     } catch (error) {
       console.error("Error fetching game state", error);
+      setLoadError("Failed to load the game state.");
     }
   };
 
@@ -38,9 +31,31 @@ const RouteList = () => {
   };
 
   useEffect(() => {
-    fetchGameMap();
-    fetchGame();
+    api
+      .get("/map")
+      .then((response) => setGameMap(response.data))
+      .catch((error) => {
+        console.error("Error fetching game map", error);
+        setLoadError("Failed to load the game map.");
+      });
+
+    api
+      .get("/state")
+      .then((response) => setGame(response.data))
+      .catch((error) => {
+        console.error("Error fetching game state", error);
+        setLoadError("Failed to load the game state.");
+      });
   }, []);
+
+  if (loadError) {
+    return (
+      <div>
+        <h2>Route list</h2>
+        <p>{loadError}</p>
+      </div>
+    );
+  }
 
   if (game === null || gameMap === null) {
     return (
@@ -79,4 +94,4 @@ const RouteList = () => {
   );
 };
 
-export default RouteList;
+export default Game;

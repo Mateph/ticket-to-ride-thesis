@@ -1,6 +1,13 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from main import app
+
+
+@pytest.fixture(autouse=True)
+def fresh_game(reset_game_state):
+    pass
+
 
 client = TestClient(app)
 
